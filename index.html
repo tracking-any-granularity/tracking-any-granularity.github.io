@@ -1,0 +1,403 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>SAM 2++: Tracking Anything at Any Granularity</title>
+<link href="style.css" rel="stylesheet" type="text/css">
+
+<link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+      rel="stylesheet">
+      <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css"> -->
+<link rel="stylesheet" href="./static/css/bulma.min.css">
+<link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+<link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+<link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+<link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+<link rel="stylesheet" href="./static/css/index.css">
+<link rel="icon" href="./static/map.png">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script defer src="./static/js/fontawesome.all.min.js"></script>
+<script src="./static/js/bulma-carousel.min.js"></script>
+<script src="./static/js/bulma-slider.min.js"></script>
+<script src="./static/js/index.js"></script>
+<script src="./static/js/select_frame.js"></script>
+</head>
+
+<body>
+	<!-- <button style="position: fixed;right: 15px;top:  50%;height: 100px;width: 140px; font-size: 20px;" type="button"><a href="#top">Back to top</a></button>  -->
+<div class="page-container">
+  <!-- <h1 align="center">DynamiCrafter:<br>Animating Open-domain Images with Video Diffusion Priors</h1> -->
+  
+  
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">🗺️ SAM 2++: Tracking Anything at Any Granularity</h1>
+            <div class="is-size-4 publication-authors">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+	
+	<a href="#top"></a>
+
+    <!------------------ BEGIN SECTION ------------------>
+    <hr>
+    <h2 style="margin-top: 0em;" id="mog_intro" align="left"></a>🔍 Introduction of our SAM 2++</h2>
+      
+    <p style="font-size: 1.2em; line-height: 1.6; color: #333; margin-bottom: -2.5rem;">
+        SAM 2++ is a general video tracking foundation model that can track any object at any granularity, including masks, bounding boxes, and points.
+        <br><br>
+        We present SAM 2++, a unified foundation model towards tracking anything at any granularity, including masks, bounding boxes, and points.
+        Video tracking tasks aim at finding the specific target in subsequent frames given its initial state.
+        Due to the varying granularity of target states across different tracking tasks, most existing trackers are tailored to a single task and rely heavily on independent modules across tasks.
+        This limits their generalization ability and leads to redundancy in both model design and parameters.
+        To yield a more generalized and compact architecture, we start by designing task-specific prompts and a unified decoder.
+        Besides, SAM 2++ captures the core principle of memory matching in tracking tasks to enable a unified model for multi-granularity tracking. We further introduce a task-adaptive memory mechanism that unifies target states across different granularities, while meeting the diverse requirements of various tasks.
+        To enable tracking any granularity, we present a customized data engine to construct a large and diverse video tracking dataset, termed <i>Tracking-Any-Granularity</i>, with comprehensive annotations at three granularities.
+        Through extensive training on large-scale video datasets, our SAM 2++ achieves state-of-the-art performance across a wide range of tracking tasks at different granularities, with a unified model.
+    </p>
+    <br><br>
+    <img src="01intro/overview.png" alt="overview figure" style="width: 90%; display: block; margin: 0 auto;">
+    </iframe>
+
+
+  <!------------------ BEGIN SECTION ------------------>
+  <p>&nbsp;</p>
+  <hr>
+  <h2 style="margin-top: 0em;" id="our_results_container" align="left"><a name="image-results" id="image-results"></a>🎥 Demos produced by our SAM 2++</h2>
+    
+  <h2 align="center">Video Object Segmentation: mask ❤️ 💛 💙</h2>
+
+  <table  width="1024" align="center">
+    <tbody>
+      <tr>
+        <th class="media1">DAVIS 2017</th>
+        <th class="media1">LVOS v2</th>
+        <th class="media1">MOSE</th>
+      </tr>
+      <tr>
+        <th><video  width="400" src="02demo/mask-DAVIS17_val-dogs-jump--10.mp4" autoplay loop controls muted/></th>
+        <th><video  width="400" src="02demo/mask-LVOS_v2_val-73e0wRka--6.mp4" autoplay loop controls muted/></th>
+        <th><video  width="400" src="02demo/mask-MOSE-ba5644c3--6.mp4" autoplay loop controls muted/></th>
+      </tr>
+    </tbody>
+  </table>
+
+  <table  width="1024" align="center">
+    <tbody>
+      <tr>
+        <th class="media1">Tracking-Any-Granularity</th>
+        <th class="media1">VISOR</th>
+      </tr>
+      <tr>
+        <th><video  width="400" src="02demo/mask-TA_val-00211.mp4" autoplay loop controls muted/></th>
+        <th><video  width="400" src="02demo/mask-VISOR_val-P24_09_seq_00055--3.mp4" autoplay loop controls muted/></th>
+      </tr>
+    </tbody>
+  </table>
+
+  <br><br><br>
+  <h2 align="center">Single Object Tracking: box 🟥 🟨 🟦</h2>
+    
+  <table  width="1024" align="center">
+    <tbody>
+      <tr>
+        <th class="media1">GOT 10k</th>
+        <th class="media1">LaSOT</th>
+        <th class="media1">NFS</th>
+      </tr>
+      <tr>
+        <th><video  width="400" src="02demo/box-Got10K-GOT-10k_Test_000143--15.mp4" autoplay loop controls muted/></th>
+        <th><video  width="400" src="02demo/box-Lasot-licenseplate-licenseplate-12.mp4" autoplay loop controls muted/></th>
+        <th><video  width="400" src="02demo/box-NFS-nfs_soccer_player_2.mp4" autoplay loop controls muted/></th>
+      </tr>
+    </tbody>
+  </table>
+
+  <table  width="1024" align="center">
+    <tbody>
+      <tr>
+        <th class="media1">Tracking-Any-Granularity</th>
+        <th class="media1">UAV123</th>
+      </tr>
+      <tr>
+        <th><video  width="400" src="02demo/box-TA_val-00721.mp4" autoplay loop controls muted/></th>
+        <th><video  width="400" src="02demo/box-UAV123-uav_wakeboard1.mp4" autoplay loop controls muted/></th>
+      </tr>
+    </tbody>
+  </table>
+
+  <br><br><br>
+  <h2 align="center">Point Tracking: point 🔴 🟠 🔵 </h2>
+    
+  <table  width="1024" align="center">
+    <tbody>
+      <tr>
+        <th class="media1">TAP-Vid RGB-Stacking</th>
+        <th class="media1">TAP-Vid DAVIS</th>
+        <th class="media1">TAP-Vid RoboTAP</th>
+      </tr>
+      <tr>
+        <th><video  width="400" src="02demo/points-Tapvid_tapvid_rgb_stacking-00004--2--2--20--15-resize.mp4" autoplay loop controls muted/></th>
+        <th><video  width="400" src="02demo/points-Tapvid_davis-00002--4--3--20--15.mp4" autoplay loop controls muted/></th>
+        <th><video  width="400" src="02demo/points-Tapvid_robotap-00055--2--2--20--15-resize.mp4" autoplay loop controls muted/></th>
+      </tr>
+    </tbody>
+  </table>
+
+  <table  width="1024" align="center">
+    <tbody>
+      <tr>
+        <th class="media1">Tracking-Any-Granularity</th>
+        <th class="media1">PerceptionTest</th>
+      </tr>
+      <tr>
+        <th><video  width="400" src="02demo/points-TrackingAnything_val-00300--3--3--20--15.mp4" autoplay loop controls muted/></th>
+        <th><video  width="400" src="02demo/points-PerceptionTest_val-video_3323--3--3--20--15--small.mp4" autoplay loop controls muted/></th>
+      </tr>
+    </tbody>
+  </table>
+
+  <!------------------ BEGIN SECTION ------------------>
+  <p>&nbsp;</p>
+  <hr>
+  <h2 style="margin-top: 0em;" id="our_results_container" align="left"><a name="image-results" id="image-results"></a>🗃️ Example Videos from our dataset Tracking-Any-Granularity</h2>
+
+  <table  width="1024" align="center">
+    <tbody>
+      <tr>
+        <th><video  width="400" src="04dataset/00011.mp4" autoplay loop controls muted/></th>
+        <th><video  width="400" src="04dataset/00021.mp4" autoplay loop controls muted/></th>
+        <th><video  width="400" src="04dataset/00022.mp4" autoplay loop controls muted/></th>
+      </tr>
+    </tbody>
+  </table>
+
+  <table  width="1024" align="center">
+    <tbody>
+      <tr>
+        <th><video  width="400" src="04dataset/00025.mp4" autoplay loop controls muted/></th>
+        <th><video  width="400" src="04dataset/00028.mp4" autoplay loop controls muted/></th>
+        <th><video  width="400" src="04dataset/00045.mp4" autoplay loop controls muted/></th>
+      </tr>
+    </tbody>
+  </table>
+
+  <table  width="1024" align="center">
+    <tbody>
+      <tr>
+        <th><video  width="400" src="04dataset/00047.mp4" autoplay loop controls muted/></th>
+        <th><video  width="400" src="04dataset/00058.mp4" autoplay loop controls muted/></th>
+        <th><video  width="400" src="04dataset/00065.mp4" autoplay loop controls muted/></th>
+      </tr>
+    </tbody>
+  </table>
+
+  <table  width="1024" align="center">
+    <tbody>
+      <tr>
+        <th><video  width="400" src="04dataset/00076.mp4" autoplay loop controls muted/></th>
+        <th><video  width="400" src="04dataset/00095.mp4" autoplay loop controls muted/></th>
+        <th><video  width="400" src="04dataset/00100.mp4" autoplay loop controls muted/></th>
+      </tr>
+    </tbody>
+  </table>
+
+  <table  width="1024" align="center">
+    <tbody>
+      <tr>
+        <th><video  width="400" src="04dataset/00102.mp4" autoplay loop controls muted/></th>
+        <th><video  width="400" src="04dataset/00103.mp4" autoplay loop controls muted/></th>
+        <th><video  width="400" src="04dataset/00117.mp4" autoplay loop controls muted/></th>
+      </tr>
+    </tbody>
+  </table>
+
+  <table  width="1024" align="center">
+    <tbody>
+      <tr>
+        <th><video  width="400" src="04dataset/00126.mp4" autoplay loop controls muted/></th>
+        <th><video  width="400" src="04dataset/00139.mp4" autoplay loop controls muted/></th>
+        <th><video  width="400" src="04dataset/00152.mp4" autoplay loop controls muted/></th>
+      </tr>
+    </tbody>
+  </table>
+
+  <table  width="1024" align="center">
+    <tbody>
+      <tr>
+        <th><video  width="400" src="04dataset/00214.mp4" autoplay loop controls muted/></th>
+        <th><video  width="400" src="04dataset/00227.mp4" autoplay loop controls muted/></th>
+        <th><video  width="400" src="04dataset/00236.mp4" autoplay loop controls muted/></th>
+      </tr>
+    </tbody>
+  </table>
+
+  <table  width="1024" align="center">
+    <tbody>
+      <tr>
+        <th><video  width="400" src="04dataset/00312.mp4" autoplay loop controls muted/></th>
+        <th><video  width="400" src="04dataset/00332.mp4" autoplay loop controls muted/></th>
+        <th><video  width="400" src="04dataset/00372.mp4" autoplay loop controls muted/></th>
+      </tr>
+    </tbody>
+  </table>
+
+  <br><br><br>
+  <h2 align="center"> Analysis of Statistics and Attributes </h2>
+  <img src="04dataset/4-attr.png" alt="attr figure" style="width: 90%; display: block; margin: 0 auto;">
+
+  <br><br><br>
+  <h2 align="center"> Comparison of our datasets with public datasets </h2>
+  <img src="04dataset/data_compare.png" alt="data_compare figure" style="width: 90%; display: block; margin: 0 auto;">
+
+    <!------------------ BEGIN SECTION ------------------>
+    <p>&nbsp;</p>
+    <hr>
+        
+    <h2 id="comparison_with_baseline_container" align="left"><a name="image-results" id="image-results"></a>🏆 Comparisons with existing video tracking methods</h2>
+    <div class="container" id="baseline">
+
+      <h2 align="center"> Video Object Segmentation </h2>
+      <img src="03comparisons/comp1.png" alt="comparisons/comp1 figure" style="width: 90%; display: block; margin: 0 auto;">
+      
+      <h2 align="center"> Single Object Tracking </h2>
+      <img src="03comparisons/comp2.png" alt="comparisons/comp2 figure" style="width: 90%; display: block; margin: 0 auto;">
+      
+      <h2 align="center"> Point Tracking </h2>
+      <img src="03comparisons/comp3.png" alt="comparisons/comp3 figure" style="width: 90%; display: block; margin: 0 auto;">
+      
+
+    <!------------------ BEGIN SECTION ------------------>
+    <!-- <hr>
+        
+    <h2 id="failure_cases_container" align="left"><a name="image-results" id="image-results"></a>💡 Failure cases</h2>
+
+    <p align="left">
+      Our model may not correctly and semantically understand the image contents. (e.g., the black part should be the rigid body of the aircraft, which cannot sway with the wind.)
+    </p>
+    <table  width="1024" align="center">
+      <tbody>
+        <tr>
+          <th style="font-size: 16px">Input starting frame</th>
+          <th style="font-size: 16px">Input ending frame</th>
+          <th style="font-size: 16px">Our failure case</th>
+        </tr>
+        <tr>
+          <th><img class="input_image_frameinterp" src="./05limitation/74845_304_frame1.png" alt=""/></th>
+          <th><img class="input_image_frameinterp" src="./05limitation/74845_304_frame3.png" alt=""/></th>
+          <th><video  width="300" src="./05limitation/74845_304_WOurs.mp4" autoplay loop controls muted/></th>
+        </tr>
+      </tbody>
+    </table> -->
+
+    <!------------------ END   SECTION ------------------> 
+
+</div>
+
+
+<script>
+  const videoContainer = document.querySelector('.video-container');
+  const video = document.querySelector('video');
+  const hoverImage = document.querySelector('.hover-image');
+  const caption = document.querySelector('.caption');
+
+  videoContainer.addEventListener('mouseenter', () => {
+      video.pause();
+      hoverImage.style.display = 'block';
+      caption.style.display = 'block';
+  });
+
+  videoContainer.addEventListener('mouseleave', () => {
+      video.play();
+      hoverImage.style.display = 'none';
+      caption.style.display = 'none';
+  });
+
+  // for nerfies template
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+
+  gtag('js', new Date());
+
+  gtag('config', 'G-PYVRSFMDRL');
+
+
+
+
+
+  // for carousel
+  window.addEventListener('DOMContentLoaded', (event) => {
+        const videoWrappers = document.querySelectorAll('.video-wrapper');
+      
+        videoWrappers.forEach(wrapper => {
+          const defaultVideo = wrapper.querySelector('.default-video');
+          const aspectRatio = defaultVideo.videoWidth / defaultVideo.videoHeight;
+          const height = wrapper.offsetWidth / aspectRatio;
+      
+          wrapper.style.height = `${height}px`;
+      
+          wrapper.addEventListener('mouseenter', () => {
+            defaultVideo.pause();
+            hoverVideo.play();
+          });
+      
+          wrapper.addEventListener('mouseleave', () => {
+            defaultVideo.play();
+            hoverVideo.pause();
+          });
+        });
+      }); 
+      $(document).ready(function() {
+        var carouselItems = $('.carousel .item');
+        var numItems = carouselItems.length;
+        var numVideos = 5;
+        var currentIndex = 0;
+    
+        $('.carousel').on('click', function() {
+          currentIndex++;
+          if (currentIndex + numVideos <= numItems) {
+            carouselItems.removeClass('active');
+            carouselItems.slice(currentIndex, currentIndex + numVideos).addClass('active');
+          } else {
+            currentIndex = 0;
+            carouselItems.removeClass('active');
+            carouselItems.slice(currentIndex, currentIndex + numVideos).addClass('active');
+          }
+        });
+    
+        carouselItems.slice(currentIndex, currentIndex + numVideos).addClass('active');
+      });
+</script>
+
+
+<footer class="footer">
+  <div class="container" style="text-align: left;">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            Website content is licensed under a <a rel="license"
+                                                href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative
+            Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            Website source code based on the <a href="https://nerfies.github.io/"> Nerfies</a> project page and <a href="https://diffusion-tokenflow.github.io/"> TokenFlow (supp)</a>. If you want to reuse their <a
+              href="https://github.com/nerfies/nerfies.github.io">source code</a>, please credit them appropriately.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
