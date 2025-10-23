@@ -43,6 +43,38 @@
       </div>
     </div>
   </section>
+
+<div class="column has-text-centered">
+  <div class="publication-links">
+    <span class="link-block">
+      <a href="https://arxiv.org/abs/2507.02546" class="external-link button is-normal is-rounded is-dark" target="_blank">
+        <span class="icon"><i class="ai ai-arxiv"></i></span><span>SAM 2++ arXiv</span>
+      </a>
+    </span>
+
+    <span class="link-block">
+      <a href="https://github.com/MCG-NJU/SAM2-Plus" class="external-link button is-normal is-rounded is-dark"
+        target="_blank">
+        <span class="icon"><i class="fab fa-github"></i></span><span>SAM 2++ Code</span>
+      </a>
+    </span>
+
+    <span class="link-block">
+      <a href="https://huggingface.co/datasets/MCG-NJU/Tracking-Any-Granularity"
+        class="external-link button is-normal is-rounded is-dark" target="_blank">
+        <span class="icon">🤗</span><span>Tracking-Any-Granularity Dataset</span>
+      </a>
+    </span>
+
+    <span class="link-block">
+      <a href="https://huggingface.co/datasets/MCG-NJU/Tracking-Any-Granularity"
+        class="external-link button is-normal is-rounded is-dark" target="_blank">
+        <span class="icon">🏆</span><span>Leaderboard Challenge</span>
+      </a>
+    </span>
+  </div>
+
+</div>
 	
 	<a href="#top"></a>
 
@@ -51,7 +83,7 @@
     <h2 style="margin-top: 0em;" id="mog_intro" align="left"></a>🌟 Overview</h2>
       
     <p style="font-size: 1.2em; line-height: 1.6; color: #333; margin-bottom: -2.5rem;">
-        A unified video tracking foundation model that can track any object at any granularity, including masks, bounding boxes, and points.
+        <b>A  unified video tracking foundation model that can track object at any granularity, including masks, bounding boxes, and points.</b>
         <br><br>
         Video tracking aims at finding the specific target in subsequent frames given its initial state. Due to the varying granularity of target states across different tasks, most existing trackers are tailored to a single task and heavily rely on custom-designed modules within the individual task, which limits their generalization and leads to redundancy in both model design and parameters. To unify video tracking tasks, we present SAM 2++, a unified model towards tracking at any granularity, including masks, boxes, and points. First, to extend target granularity, we design task-specific prompts to encode various task inputs into general prompt embeddings, and a unified decoder to unify diverse task results into a unified form pre-output. Next, to satisfy memory matching, the core operation of tracking, we introduce a task-adaptive memory mechanism that unifies memory across different granularities. Finally, we introduce a customized data engine to support tracking training at any granularity, producing a large and diverse video tracking dataset with rich annotations at three granularities, termed Tracking-Any-Granularity, which represents a comprehensive resource for training and benchmarking on unified tracking. Comprehensive experiments on multiple benchmarks confirm that SAM 2++ sets a new state of the art across diverse tracking tasks at different granularities, establishing a unified and robust tracking framework.
     </p>
