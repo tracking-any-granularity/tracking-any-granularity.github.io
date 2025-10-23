@@ -48,19 +48,12 @@
 
     <!------------------ BEGIN SECTION ------------------>
     <hr>
-    <h2 style="margin-top: 0em;" id="mog_intro" align="left"></a>🔍 Introduction of our SAM 2++</h2>
+    <h2 style="margin-top: 0em;" id="mog_intro" align="left"></a>🌟 Overview</h2>
       
     <p style="font-size: 1.2em; line-height: 1.6; color: #333; margin-bottom: -2.5rem;">
-        SAM 2++ is a general video tracking foundation model that can track any object at any granularity, including masks, bounding boxes, and points.
+        A unified video tracking foundation model that can track any object at any granularity, including masks, bounding boxes, and points.
         <br><br>
-        We present SAM 2++, a unified foundation model towards tracking anything at any granularity, including masks, bounding boxes, and points.
-        Video tracking tasks aim at finding the specific target in subsequent frames given its initial state.
-        Due to the varying granularity of target states across different tracking tasks, most existing trackers are tailored to a single task and rely heavily on independent modules across tasks.
-        This limits their generalization ability and leads to redundancy in both model design and parameters.
-        To yield a more generalized and compact architecture, we start by designing task-specific prompts and a unified decoder.
-        Besides, SAM 2++ captures the core principle of memory matching in tracking tasks to enable a unified model for multi-granularity tracking. We further introduce a task-adaptive memory mechanism that unifies target states across different granularities, while meeting the diverse requirements of various tasks.
-        To enable tracking any granularity, we present a customized data engine to construct a large and diverse video tracking dataset, termed <i>Tracking-Any-Granularity</i>, with comprehensive annotations at three granularities.
-        Through extensive training on large-scale video datasets, our SAM 2++ achieves state-of-the-art performance across a wide range of tracking tasks at different granularities, with a unified model.
+        Video tracking aims at finding the specific target in subsequent frames given its initial state. Due to the varying granularity of target states across different tasks, most existing trackers are tailored to a single task and heavily rely on custom-designed modules within the individual task, which limits their generalization and leads to redundancy in both model design and parameters. To unify video tracking tasks, we present SAM 2++, a unified model towards tracking at any granularity, including masks, boxes, and points. First, to extend target granularity, we design task-specific prompts to encode various task inputs into general prompt embeddings, and a unified decoder to unify diverse task results into a unified form pre-output. Next, to satisfy memory matching, the core operation of tracking, we introduce a task-adaptive memory mechanism that unifies memory across different granularities. Finally, we introduce a customized data engine to support tracking training at any granularity, producing a large and diverse video tracking dataset with rich annotations at three granularities, termed Tracking-Any-Granularity, which represents a comprehensive resource for training and benchmarking on unified tracking. Comprehensive experiments on multiple benchmarks confirm that SAM 2++ sets a new state of the art across diverse tracking tasks at different granularities, establishing a unified and robust tracking framework.
     </p>
     <br><br>
     <img src="01intro/overview.png" alt="overview figure" style="width: 90%; display: block; margin: 0 auto;">
